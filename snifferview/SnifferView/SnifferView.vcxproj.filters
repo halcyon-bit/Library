@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="view">
+      <UniqueIdentifier>{242579ca-dce9-4354-9f8d-dc90b60bfd97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SyntaxHlpr">
+      <UniqueIdentifier>{fe91c9b5-0c7d-4260-bc98-b98342bac303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileCache">
+      <UniqueIdentifier>{0362a485-1317-45b2-ac75-c68c2bdf9525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserProc">
+      <UniqueIdentifier>{ff04c2d8-c9a6-4840-85a6-ac2043f63f14}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="analysis.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dump.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="filter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="help.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="http.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="iocp_server.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketCache.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="packets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketUnique.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="process.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="rules.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="servers.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sfvserv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tcporder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="view\about.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\cfgview.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\delaylist.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\FilterEdit.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\hex.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\netstat.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\netview.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\ProgressDlg.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\StreamDlg.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\StreamView.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="view\view.cpp">
+      <Filter>view</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxHlpr\SyntaxCache.cpp">
+      <Filter>SyntaxHlpr</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxHlpr\SyntaxTextView.cpp">
+      <Filter>SyntaxHlpr</Filter>
+    </ClCompile>
+    <ClCompile Include="FileCache\FileCache.cpp">
+      <Filter>FileCache</Filter>
+    </ClCompile>
+    <ClCompile Include="UserProc\UserTask.cpp">
+      <Filter>UserProc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="analysis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dump.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="filter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="help.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="http.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="iocp_server.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketCache.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="packets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketUnique.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="process.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rules.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="servers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sfvserv.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="view\about.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\cfgview.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\delaylist.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\FilterEdit.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\hex.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\netstat.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\netview.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\ProgressDlg.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\StreamDlg.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\StreamView.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="view\view.h">
+      <Filter>view</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxHlpr\export.h">
+      <Filter>SyntaxHlpr</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxHlpr\SyntaxCache.h">
+      <Filter>SyntaxHlpr</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxHlpr\SyntaxDef.h">
+      <Filter>SyntaxHlpr</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxHlpr\SyntaxEditView.h">
+      <Filter>SyntaxHlpr</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxHlpr\SyntaxTextView.h">
+      <Filter>SyntaxHlpr</Filter>
+    </ClInclude>
+    <ClInclude Include="FileCache\FileCache.h">
+      <Filter>FileCache</Filter>
+    </ClInclude>
+    <ClInclude Include="UserProc\UserTask.h">
+      <Filter>UserProc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\dll2.bin">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\Dumper.dll" />
+    <None Include="res\SnifferView.html" />
+    <None Include="res\SyntaxView.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\file.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\main.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\target.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\toolbar.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SnifferView.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2D61F9FF-501C-4605-8E55-0091D4DBC68D}</ProjectGuid>
+    <RootNamespace>SyntaxView</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>16.0.30323.82</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./include;./lexlib;./src;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SYNTAXVIEW_EXPORTS;SCI_LEXER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <ModuleDefinitionFile>SyntaxView.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)$(ProjectName).dll $(SolutionDir)\SnifferView\res\$(ProjectName).dll</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>./include;./lexlib;./src;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SYNTAXVIEW_EXPORTS;SCI_LEXER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>SyntaxView.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)$(ProjectName).dll $(SolutionDir)\SnifferView\res\$(ProjectName).dll</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="include\Scintilla.iface" />
+    <None Include="src\SciTE.properties" />
+    <None Include="SyntaxView.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="export.h" />
+    <ClInclude Include="include\BoostRegexSearch.h" />
+    <ClInclude Include="include\ILexer.h" />
+    <ClInclude Include="include\Platform.h" />
+    <ClInclude Include="include\SciLexer.h" />
+    <ClInclude Include="include\Scintilla.h" />
+    <ClInclude Include="include\ScintillaWidget.h" />
+    <ClInclude Include="lexers\LexLabel.h" />
+    <ClInclude Include="lexlib\Accessor.h" />
+    <ClInclude Include="lexlib\CharacterCategory.h" />
+    <ClInclude Include="lexlib\CharacterSet.h" />
+    <ClInclude Include="lexlib\LexAccessor.h" />
+    <ClInclude Include="lexlib\LexerBase.h" />
+    <ClInclude Include="lexlib\LexerModule.h" />
+    <ClInclude Include="lexlib\LexerNoExceptions.h" />
+    <ClInclude Include="lexlib\LexerSimple.h" />
+    <ClInclude Include="lexlib\OptionSet.h" />
+    <ClInclude Include="lexlib\PropSetSimple.h" />
+    <ClInclude Include="lexlib\SparseState.h" />
+    <ClInclude Include="lexlib\StringCopy.h" />
+    <ClInclude Include="lexlib\StyleContext.h" />
+    <ClInclude Include="lexlib\SubStyles.h" />
+    <ClInclude Include="lexlib\WordList.h" />
+    <ClInclude Include="src\AutoComplete.h" />
+    <ClInclude Include="src\CallTip.h" />
+    <ClInclude Include="src\CaseConvert.h" />
+    <ClInclude Include="src\CaseFolder.h" />
+    <ClInclude Include="src\Catalogue.h" />
+    <ClInclude Include="src\CellBuffer.h" />
+    <ClInclude Include="src\CharClassify.h" />
+    <ClInclude Include="src\ContractionState.h" />
+    <ClInclude Include="src\Decoration.h" />
+    <ClInclude Include="src\Document.h" />
+    <ClInclude Include="src\EditModel.h" />
+    <ClInclude Include="src\Editor.h" />
+    <ClInclude Include="src\EditView.h" />
+    <ClInclude Include="src\ExternalLexer.h" />
+    <ClInclude Include="src\FontQuality.h" />
+    <ClInclude Include="src\Indicator.h" />
+    <ClInclude Include="src\KeyMap.h" />
+    <ClInclude Include="src\LineMarker.h" />
+    <ClInclude Include="src\MarginView.h" />
+    <ClInclude Include="src\Partitioning.h" />
+    <ClInclude Include="src\PerLine.h" />
+    <ClInclude Include="src\PositionCache.h" />
+    <ClInclude Include="src\RESearch.h" />
+    <ClInclude Include="src\RunStyles.h" />
+    <ClInclude Include="src\ScintillaBase.h" />
+    <ClInclude Include="src\Selection.h" />
+    <ClInclude Include="src\SplitVector.h" />
+    <ClInclude Include="src\Style.h" />
+    <ClInclude Include="src\UnicodeFromUTF8.h" />
+    <ClInclude Include="src\UniConversion.h" />
+    <ClInclude Include="src\ViewStyle.h" />
+    <ClInclude Include="src\XPM.h" />
+    <ClInclude Include="SyntaxLabel.h" />
+    <ClInclude Include="win32\HanjaDic.h" />
+    <ClInclude Include="win32\PlatWin.h" />
+    <ClInclude Include="win32\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="common.cpp" />
+    <ClCompile Include="lexers\LexCPP.cxx" />
+    <ClCompile Include="lexers\LexLabel.cpp" />
+    <ClCompile Include="lexlib\Accessor.cxx" />
+    <ClCompile Include="lexlib\CharacterCategory.cxx" />
+    <ClCompile Include="lexlib\CharacterSet.cxx" />
+    <ClCompile Include="lexlib\LexerBase.cxx" />
+    <ClCompile Include="lexlib\LexerModule.cxx" />
+    <ClCompile Include="lexlib\LexerNoExceptions.cxx" />
+    <ClCompile Include="lexlib\LexerSimple.cxx" />
+    <ClCompile Include="lexlib\PropSetSimple.cxx" />
+    <ClCompile Include="lexlib\StyleContext.cxx" />
+    <ClCompile Include="lexlib\WordList.cxx" />
+    <ClCompile Include="src\AutoComplete.cxx" />
+    <ClCompile Include="src\CallTip.cxx" />
+    <ClCompile Include="src\CaseConvert.cxx" />
+    <ClCompile Include="src\CaseFolder.cxx" />
+    <ClCompile Include="src\Catalogue.cxx" />
+    <ClCompile Include="src\CellBuffer.cxx" />
+    <ClCompile Include="src\CharClassify.cxx" />
+    <ClCompile Include="src\ContractionState.cxx" />
+    <ClCompile Include="src\Decoration.cxx" />
+    <ClCompile Include="src\Document.cxx" />
+    <ClCompile Include="src\EditModel.cxx" />
+    <ClCompile Include="src\Editor.cxx" />
+    <ClCompile Include="src\EditView.cxx" />
+    <ClCompile Include="src\ExternalLexer.cxx" />
+    <ClCompile Include="src\Indicator.cxx" />
+    <ClCompile Include="src\KeyMap.cxx" />
+    <ClCompile Include="src\LineMarker.cxx" />
+    <ClCompile Include="src\MarginView.cxx" />
+    <ClCompile Include="src\PerLine.cxx" />
+    <ClCompile Include="src\PositionCache.cxx" />
+    <ClCompile Include="src\RESearch.cxx" />
+    <ClCompile Include="src\RunStyles.cxx" />
+    <ClCompile Include="src\ScintillaBase.cxx" />
+    <ClCompile Include="src\Selection.cxx" />
+    <ClCompile Include="src\Style.cxx" />
+    <ClCompile Include="src\UniConversion.cxx" />
+    <ClCompile Include="src\ViewStyle.cxx" />
+    <ClCompile Include="src\XPM.cxx" />
+    <ClCompile Include="SyntaxLabel.cpp" />
+    <ClCompile Include="win32\HanjaDic.cxx" />
+    <ClCompile Include="win32\PlatWin.cxx" />
+    <ClCompile Include="win32\ScintillaWin.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="win32\ScintRes.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

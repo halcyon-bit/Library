@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6BECCB9D-2E18-42D6-950A-96FB37776BE1}</ProjectGuid>
+    <RootNamespace>NetView</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28307.799</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./common;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>./common;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command />
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="analysis.cpp" />
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="dump.cpp" />
+    <ClCompile Include="FileCache\FileCache.cpp" />
+    <ClCompile Include="filter.cpp" />
+    <ClCompile Include="help.cpp" />
+    <ClCompile Include="http.cpp" />
+    <ClCompile Include="iocp_server.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PacketCache.cpp" />
+    <ClCompile Include="packets.cpp" />
+    <ClCompile Include="PacketUnique.cpp" />
+    <ClCompile Include="process.cpp" />
+    <ClCompile Include="rules.cpp" />
+    <ClCompile Include="servers.cpp" />
+    <ClCompile Include="sfvserv.cpp" />
+    <ClCompile Include="SyntaxHlpr\SyntaxCache.cpp" />
+    <ClCompile Include="SyntaxHlpr\SyntaxTextView.cpp" />
+    <ClCompile Include="tcporder.cpp" />
+    <ClCompile Include="UserProc\UserTask.cpp" />
+    <ClCompile Include="view\about.cpp" />
+    <ClCompile Include="view\cfgview.cpp" />
+    <ClCompile Include="view\delaylist.cpp" />
+    <ClCompile Include="view\FilterEdit.cpp" />
+    <ClCompile Include="view\hex.cpp" />
+    <ClCompile Include="view\netstat.cpp" />
+    <ClCompile Include="view\netview.cpp" />
+    <ClCompile Include="view\ProgressDlg.cpp" />
+    <ClCompile Include="view\StreamDlg.cpp" />
+    <ClCompile Include="view\StreamView.cpp" />
+    <ClCompile Include="view\view.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="analysis.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="dump.h" />
+    <ClInclude Include="FileCache\FileCache.h" />
+    <ClInclude Include="filter.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="help.h" />
+    <ClInclude Include="http.h" />
+    <ClInclude Include="iocp_server.h" />
+    <ClInclude Include="PacketCache.h" />
+    <ClInclude Include="packets.h" />
+    <ClInclude Include="PacketUnique.h" />
+    <ClInclude Include="process.h" />
+    <ClInclude Include="protocol.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="rules.h" />
+    <ClInclude Include="servers.h" />
+    <ClInclude Include="sfvserv.h" />
+    <ClInclude Include="SyntaxHlpr\export.h" />
+    <ClInclude Include="SyntaxHlpr\SyntaxCache.h" />
+    <ClInclude Include="SyntaxHlpr\SyntaxDef.h" />
+    <ClInclude Include="SyntaxHlpr\SyntaxEditView.h" />
+    <ClInclude Include="SyntaxHlpr\SyntaxTextView.h" />
+    <ClInclude Include="UserProc\UserTask.h" />
+    <ClInclude Include="view\about.h" />
+    <ClInclude Include="view\cfgview.h" />
+    <ClInclude Include="view\delaylist.h" />
+    <ClInclude Include="view\FilterEdit.h" />
+    <ClInclude Include="view\hex.h" />
+    <ClInclude Include="view\netstat.h" />
+    <ClInclude Include="view\netview.h" />
+    <ClInclude Include="view\ProgressDlg.h" />
+    <ClInclude Include="view\StreamDlg.h" />
+    <ClInclude Include="view\StreamView.h" />
+    <ClInclude Include="view\view.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\dll2.bin" />
+    <None Include="res\Dumper.dll" />
+    <None Include="res\SnifferView.html" />
+    <None Include="res\SyntaxView.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\file.ico" />
+    <Image Include="res\main.ico" />
+    <Image Include="res\target.bmp" />
+    <Image Include="res\toolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SnifferView.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="SnifferView.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

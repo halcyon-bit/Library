@@ -1,0 +1,34 @@
+#######################################################################
+##
+## For more examples check:
+##
+## https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_Configuration
+##
+$HTTP["host"] == "download.example.com" {
+  var.server_name = "download.example.com"
+
+  server.name = server_name
+  ## example how to include another config:
+  ## use trigger before download
+  ## 
+  # include "conf.d/trigger_b4_dl.conf"
+
+  server.document-root = vhosts_dir + "/example.com/download/htdocs"
+  ##
+  ## use a seperate access log file
+  ## Since lighttpd 1.4.56, server.errorlog can also be used in virtual hosts.
+  ##
+  accesslog.filename          = log_root + "/" + server_name + "/access.log"
+  server.errorlog             = log_root + "/" + server_name + "/error.log"
+}
+
+$SERVER["socket"] == "127.0.0.1:443" {
+  server.name = "localhost"
+  ssl.pemfile = "/etc/ssl/private/lighttpd-localhost.pem"
+  ssl.engine  = "enable"
+
+  server.document-root = vhosts_dir + "/ssl-localhost/pages/"
+}
+
+##
+#######################################################################
