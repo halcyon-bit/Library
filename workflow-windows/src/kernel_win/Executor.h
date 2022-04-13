@@ -25,14 +25,19 @@
 #include "list.h"
 #include "thrdpool.h"
 
+// 线程执行器
+
+// 执行队列
 class ExecQueue
 {
 public:
+	// 初始化
 	int init();
+	// 反初始化
 	void deinit() { }
 
 private:
-	struct list_head task_list;
+	struct list_head task_list;  // 队列
 	std::mutex mutex;
 
 public:
@@ -40,9 +45,10 @@ public:
 	friend class Executor;
 };
 
-#define ES_STATE_FINISHED	0
-#define ES_STATE_ERROR		1
-#define ES_STATE_CANCELED	2
+// 状态
+#define ES_STATE_FINISHED	0  // 完成
+#define ES_STATE_ERROR		1  // 错误
+#define ES_STATE_CANCELED	2  // 取消
 
 class ExecSession
 {
@@ -61,10 +67,13 @@ public:
 	friend class Executor;
 };
 
+// 线程执行器(内部包含线程池)
 class Executor
 {
 public:
+	// 初始化(线程数量)
 	int init(size_t nthreads);
+	// 反初始化
 	void deinit();
 
 	int request(ExecSession *session, ExecQueue *queue);

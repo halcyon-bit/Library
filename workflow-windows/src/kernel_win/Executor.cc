@@ -23,19 +23,20 @@
 #include "thrdpool.h"
 #include "Executor.h"
 
+// 实际的任务
 struct ExecTaskEntry
 {
 	struct list_head list;
 	ExecSession *session;
 	thrdpool_t *thrdpool;
 };
-
+// 初始化队列
 int ExecQueue::init()
 {
 	INIT_LIST_HEAD(&this->task_list);
 	return 0;
 }
-
+// 初始化
 int Executor::init(size_t nthreads)
 {
 	if (nthreads == 0)
@@ -44,23 +45,25 @@ int Executor::init(size_t nthreads)
 		return -1;
 	}
 
+	// 创建线程池
 	this->thrdpool = thrdpool_create(nthreads, 0);
 	if (this->thrdpool)
 		return 0;
 
 	return -1;
 }
-
+// 反初始化
 void Executor::deinit()
 {
+	// 销毁线程池
 	thrdpool_destroy(Executor::executor_cancel_tasks, this->thrdpool);
 }
 
 void __thrdpool_schedule(const struct thrdpool_task *, void *, thrdpool_t *);
-
+// 线程回调函数(任务函数)
 void Executor::executor_thread_routine(void *context)
 {
-	ExecQueue *queue = (ExecQueue *)context;
+	ExecQueue *queue = (ExecQueue *)context;  // 任务队列
 	ExecTaskEntry *entry;
 	ExecSession *session;
 
@@ -70,6 +73,7 @@ void Executor::executor_thread_routine(void *context)
 	session = entry->session;
 	if (!list_empty(&queue->task_list))
 	{
+		// 任务队列还有其他任务, 则再次加入线程池中
 		struct thrdpool_task task = {Executor::executor_thread_routine, queue};
 		/*
 		{
@@ -77,16 +81,21 @@ void Executor::executor_thread_routine(void *context)
 			.context	=	queue
 		};
 		*/
-		__thrdpool_schedule(&task, entry, entry->thrdpool);
+		//       线程池中任务结构                   Exec中任务结构   两者都是POD类型
+		// 因为 sizeof(__thrdpool_task_entry) == sizeof(ExecTaskEntry), 所以直接将 entry 传入
+		// 可以节省一次内存申请, thrdpool_schedule 添加任务会申请内存, 并且不会有内存泄漏
+		// 在线程池中, 会将 entry 的内存释放(判定其为 __thrdpool_task_entry 类型)
+		__thrdpool_schedule(&task, entry, entry->thrdpool); // ?
 	}
 	else
 		delete entry;
 
 	queue->mutex.unlock();
+	// 执行实际的任务
 	session->execute();
 	session->handle(ES_STATE_FINISHED, 0);
 }
-
+// 取消任务(销毁线程池时使用)
 void Executor::executor_cancel_tasks(const struct thrdpool_task *task)
 {
 	ExecQueue *queue = (ExecQueue *)task->context;
@@ -104,18 +113,21 @@ void Executor::executor_cancel_tasks(const struct thrdpool_task *task)
 		session->handle(ES_STATE_CANCELED, 0);
 	}
 }
-
+// 添加一个任务
 int Executor::request(ExecSession *session, ExecQueue *queue)
 {
+	// 任务
 	ExecTaskEntry *entry = new ExecTaskEntry;
 
 	session->queue = queue;
 	entry->session = session;
 	entry->thrdpool = this->thrdpool;
 	queue->mutex.lock();
+	// 将任务加入到 ExecQueue 队列尾部
 	list_add_tail(&entry->list, &queue->task_list);
 	if (queue->task_list.next == &entry->list)
 	{
+		// 如果是个新队列，则需加入到线程池中
 		struct thrdpool_task task = {Executor::executor_thread_routine, queue};
 		/*
 		{
@@ -132,6 +144,6 @@ int Executor::request(ExecSession *session, ExecQueue *queue)
 	}
 
 	queue->mutex.unlock();
-	return -!entry;
+	return -!entry;  // ?
 }
 
