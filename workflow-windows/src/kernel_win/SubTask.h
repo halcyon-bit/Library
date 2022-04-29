@@ -24,16 +24,19 @@
 #include <atomic>
 
 class ParallelTask;
-
+// 所有任务的基类
 class SubTask
 {
 public:
+	// 任务派发
 	virtual void dispatch() = 0;
 
 private:
+	// 任务执行完成后会调用
 	virtual SubTask *done() = 0;
 
 protected:
+	// 任务执行完成后调用, 内部调用实际任务的 done()
 	void subtask_done();
 
 public:

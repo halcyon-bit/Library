@@ -50,11 +50,12 @@ public:
 #define ES_STATE_ERROR		1  // 错误
 #define ES_STATE_CANCELED	2  // 取消
 
+// 线程特有的任务基类
 class ExecSession
 {
 private:
-	virtual void execute() = 0;
-	virtual void handle(int state, int error) = 0;
+	virtual void execute() = 0;  // 执行任务
+	virtual void handle(int state, int error) = 0;  // 任务(执行完成、取消、错误)后处理函数
 
 protected:
 	ExecQueue *get_queue() { return this->queue; }

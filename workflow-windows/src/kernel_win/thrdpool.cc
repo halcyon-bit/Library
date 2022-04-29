@@ -50,7 +50,7 @@ static void __thrdpool_routine(thrdpool_t *pool)
 	// 任务队列
 	struct list_head **pos = &pool->task_queue.next;
 	__thrdpool_task_entry *entry;  // 具体的任务
-	std::unique_lock<std::mutex> lock(pool->mutex, std::defer_lock);  // 没有 lock 的锁，提高一丢丢性能?
+	std::unique_lock<std::mutex> lock(pool->mutex, std::defer_lock);  // 没有立即上锁
 
 	while (1)
 	{
