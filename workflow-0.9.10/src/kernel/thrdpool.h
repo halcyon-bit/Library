@@ -21,8 +21,10 @@
 
 #include <stddef.h>
 
+// 线程池
 typedef struct __thrdpool thrdpool_t;
 
+// 线程池中的任务
 struct thrdpool_task
 {
 	void (*routine)(void *);
@@ -46,13 +48,18 @@ extern "C"
  * does not end the task thread. It'll run till the end of task.
  */
 
+// 创建线程池
 thrdpool_t *thrdpool_create(size_t nthreads, size_t stacksize);
+// 添加任务到线程池中(task: 任务, pool: 线程池)
 int thrdpool_schedule(const struct thrdpool_task *task, thrdpool_t *pool);
+// 扩大线程池, 增加1个线程
 int thrdpool_increase(thrdpool_t *pool);
+// 判断当前线程是否在线程池中
 int thrdpool_in_pool(thrdpool_t *pool);
+// 终止线程池(pending: 对线程池中残留的任务做额外的处理, pool: 线程池)
 void thrdpool_destroy(void (*pending)(const struct thrdpool_task *),
 					  thrdpool_t *pool);
-
+// pending: 主要是处理任务数据, 用户是否有申请的内存需要释放
 #ifdef __cplusplus
 }
 #endif

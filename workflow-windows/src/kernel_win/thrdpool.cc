@@ -28,53 +28,53 @@
 #include "list.h"
 #include "thrdpool.h"
 
-// Ïß³Ì³Ø½á¹¹Ìå
+// çº¿ç¨‹æ± ç»“æ„ä½“
 struct __thrdpool
 {
-	struct list_head task_queue;  // ÈÎÎñ¶ÓÁĞ(Ë«ÏòÁ´±í)  Êµ¼ÊµÄÈÎÎñÀàĞÍÊÇ __thrdpool_task_entry
+	struct list_head task_queue;  // ä»»åŠ¡é˜Ÿåˆ—(åŒå‘é“¾è¡¨)  å®é™…çš„ä»»åŠ¡ç±»å‹æ˜¯ __thrdpool_task_entry
 	std::mutex mutex;
 	std::condition_variable cond;
-	std::vector<std::thread *> threads;  // Ïß³Ì
-	std::set<std::thread::id> threadids;  // Ïß³Ìid
-	bool terminate;  // ÊÇ·ñÖĞÖ¹Ïß³Ì
+	std::vector<std::thread *> threads;  // çº¿ç¨‹
+	std::set<std::thread::id> threadids;  // çº¿ç¨‹id
+	bool terminate;  // æ˜¯å¦ä¸­æ­¢çº¿ç¨‹
 };
-// ÈÎÎñ
+// ä»»åŠ¡
 struct __thrdpool_task_entry
 {
 	struct list_head list;
 	struct thrdpool_task task;
 };
-// Ïß³Ìº¯Êı
+// çº¿ç¨‹å‡½æ•°
 static void __thrdpool_routine(thrdpool_t *pool)
 {
-	// ÈÎÎñ¶ÓÁĞ
+	// ä»»åŠ¡é˜Ÿåˆ—
 	struct list_head **pos = &pool->task_queue.next;
-	__thrdpool_task_entry *entry;  // ¾ßÌåµÄÈÎÎñ
-	std::unique_lock<std::mutex> lock(pool->mutex, std::defer_lock);  // Ã»ÓĞÁ¢¼´ÉÏËø
+	__thrdpool_task_entry *entry;  // å…·ä½“çš„ä»»åŠ¡
+	std::unique_lock<std::mutex> lock(pool->mutex, std::defer_lock);  // æ²¡æœ‰ç«‹å³ä¸Šé”
 
 	while (1)
 	{
 		lock.lock();
-		// µÈ´ıÈÎÎñ
+		// ç­‰å¾…ä»»åŠ¡
 		while (!pool->terminate && list_empty(&pool->task_queue))
 			pool->cond.wait(lock);
 
-		// ÊÇ·ñÖĞÖ¹Ïß³Ì
+		// æ˜¯å¦ä¸­æ­¢çº¿ç¨‹
 		if (pool->terminate)
 			break;
 
-		// »ñÈ¡ÈÎÎñ
+		// è·å–ä»»åŠ¡
 		entry = list_entry(*pos, __thrdpool_task_entry, list);
-		list_del(*pos);  // ´Ó¶ÓÁĞÖĞÒÆ³ı
+		list_del(*pos);  // ä»é˜Ÿåˆ—ä¸­ç§»é™¤
 		lock.unlock();
 
-		// Ö´ĞĞÈÎÎñ
+		// æ‰§è¡Œä»»åŠ¡
 		entry->task.routine(entry->task.context);
-		// Ö´ĞĞÍê³ÉºóÉ¾³ı
+		// æ‰§è¡Œå®Œæˆååˆ é™¤
 		delete entry;
 	}
 }
-// ÖĞÖ¹Ïß³Ì³Ø(ÄÚ²¿)
+// ä¸­æ­¢çº¿ç¨‹æ± (å†…éƒ¨)
 static void __thrdpool_terminate(thrdpool_t *pool)
 {
 	std::unique_lock<std::mutex> lock(pool->mutex);
@@ -84,12 +84,12 @@ static void __thrdpool_terminate(thrdpool_t *pool)
 	for (size_t i = 0; i < pool->threads.size(); i++)
 	{
 		std::thread *th = pool->threads[i];
-		lock.unlock();  // Ïß³Ìº¯ÊıĞèÒª»ñÈ¡Ëø(ÎªÊ²Ã´ËøÔÚÕâ? ¶Ô pool µÄ±£»¤? thrdpool_increase?)
+		lock.unlock();  // çº¿ç¨‹å‡½æ•°éœ€è¦è·å–é”(ä¸ºä»€ä¹ˆé”åœ¨è¿™? å¯¹ pool çš„ä¿æŠ¤? thrdpool_increase?)
 		th->join();
 		lock.lock();
 	}
 }
-// ´´½¨Ïß³Ì³Ø(ÄÚ²¿)
+// åˆ›å»ºçº¿ç¨‹æ± (å†…éƒ¨)
 static int __thrdpool_create_threads(size_t nthreads, size_t stacksize,
 									 thrdpool_t *pool)
 {
@@ -104,42 +104,42 @@ static int __thrdpool_create_threads(size_t nthreads, size_t stacksize,
 
 	return 0;
 }
-// ´´½¨Ïß³Ì³Ø
+// åˆ›å»ºçº¿ç¨‹æ± 
 thrdpool_t *thrdpool_create(size_t nthreads, size_t stacksize)
 {
 	thrdpool_t *pool = new __thrdpool;
 
-	INIT_LIST_HEAD(&pool->task_queue);  // ³õÊ¼»¯ÈÎÎñÁ´±í
-	pool->threads.clear();  // ÕâÀïÊÇ·ñ¿ÉÒÔ reserve
+	INIT_LIST_HEAD(&pool->task_queue);  // åˆå§‹åŒ–ä»»åŠ¡é“¾è¡¨
+	pool->threads.clear();  // è¿™é‡Œæ˜¯å¦å¯ä»¥ reserve
 	pool->terminate = false;
-	// ´´½¨Ïß³Ì³Ø
+	// åˆ›å»ºçº¿ç¨‹æ± 
 	if (__thrdpool_create_threads(nthreads, stacksize, pool) >= 0)
 		return pool;
 
 	delete pool;
 	return NULL;
 }
-// Ìí¼ÓÈÎÎñµ½Ïß³Ì³ØÖĞ(ÄÚ²¿)
+// æ·»åŠ ä»»åŠ¡åˆ°çº¿ç¨‹æ± ä¸­(å†…éƒ¨)
 void __thrdpool_schedule(const struct thrdpool_task *task, void *buf,
 						 thrdpool_t *pool)
 {
 	__thrdpool_task_entry *entry = (__thrdpool_task_entry *)buf;
 	entry->task = *task;
 	std::lock_guard<std::mutex> lock(pool->mutex);
-	// Ìí¼Óµ½Á´±íÎ²²¿, »½ĞÑÏß³Ì
+	// æ·»åŠ åˆ°é“¾è¡¨å°¾éƒ¨, å”¤é†’çº¿ç¨‹
 	list_add_tail(&entry->list, &pool->task_queue);
 	pool->cond.notify_one();
 }
-// Ìí¼ÓÈÎÎñµ½Ïß³Ì³ØÖĞ
+// æ·»åŠ ä»»åŠ¡åˆ°çº¿ç¨‹æ± ä¸­
 int thrdpool_schedule(const struct thrdpool_task *task, thrdpool_t *pool)
 {
 	__thrdpool_schedule(task, new __thrdpool_task_entry, pool);
 	return 0;
 }
-// À©´óÏß³Ì³Ø, Ôö¼Ó1¸öÏß³Ì
+// æ‰©å¤§çº¿ç¨‹æ± , å¢åŠ 1ä¸ªçº¿ç¨‹
 int thrdpool_increase(thrdpool_t *pool)
 {
-	// ÊÇ·ñĞèÒªÅĞ¶Ï pool->terminate, ÈôÒÑÖÕÖ¹ÔòÎŞĞè´´½¨Ïß³Ì, ·ñÔò´´½¨ºó¾Í±»Ïú»ÙÁË
+	// æ˜¯å¦éœ€è¦åˆ¤æ–­ pool->terminate, è‹¥å·²ç»ˆæ­¢åˆ™æ— éœ€åˆ›å»ºçº¿ç¨‹, å¦åˆ™åˆ›å»ºåå°±è¢«é”€æ¯äº†
 	std::lock_guard<std::mutex> lock(pool->mutex);
 	auto *th = new std::thread(__thrdpool_routine, pool);
 
@@ -147,27 +147,27 @@ int thrdpool_increase(thrdpool_t *pool)
 	pool->threadids.emplace(th->get_id());
 	return 0;
 }
-// ÅĞ¶Ïµ±Ç°Ïß³ÌÊÇ·ñÔÚÏß³Ì³ØÖĞ
+// åˆ¤æ–­å½“å‰çº¿ç¨‹æ˜¯å¦åœ¨çº¿ç¨‹æ± ä¸­
 int thrdpool_in_pool(thrdpool_t *pool)
 {
 	std::lock_guard<std::mutex> lock(pool->mutex);
 	return pool->threadids.count(std::this_thread::get_id()) > 0;
 }
-// ÖĞÖ¹Ïß³Ì³Ø
+// ä¸­æ­¢çº¿ç¨‹æ± 
 void thrdpool_destroy(void (*pending)(const struct thrdpool_task *),
 					  thrdpool_t *pool)
 {
 	__thrdpool_task_entry *entry;
 	struct list_head *pos, *tmp;
-	// ÖĞÖ¹Ïß³Ì³Ø
+	// ä¸­æ­¢çº¿ç¨‹æ± 
 	__thrdpool_terminate(pool);
-	// ±éÀúÈÎÎñÁĞ±í, Ïú»ÙÈÎÎñ
+	// éå†ä»»åŠ¡åˆ—è¡¨, é”€æ¯ä»»åŠ¡
 	list_for_each_safe(pos, tmp, &pool->task_queue)
 	{
 		entry = list_entry(pos, __thrdpool_task_entry, list);
 		list_del(pos);
 		if (pending)
-			pending(&entry->task);  // ÓÃ»§¶ÔÈÎÎñ×ö¶îÍâµÄ´¦Àí
+			pending(&entry->task);  // ç”¨æˆ·å¯¹ä»»åŠ¡åšé¢å¤–çš„å¤„ç†
 
 		delete entry;
 	}

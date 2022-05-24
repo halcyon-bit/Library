@@ -22,27 +22,27 @@
 
 #include <stddef.h>
 
-// Ïß³Ì³Ø
+// çº¿ç¨‹æ± 
 typedef struct __thrdpool thrdpool_t;
 
-// Ïß³Ì³ØÖĞµÄÈÎÎñ
+// çº¿ç¨‹æ± ä¸­çš„ä»»åŠ¡
 struct thrdpool_task
 {
-	void (*routine)(void *);  // »Øµ÷º¯Êı
-	void *context;  // Êı¾İ
+	void (*routine)(void *);  // å›è°ƒå‡½æ•°
+	void *context;  // æ•°æ®
 };
 
-// ´´½¨Ïß³Ì³Ø(nthreads: Ïß³Ì³ØÊıÁ¿, stacksize: Î´ÓÃµ½)
+// åˆ›å»ºçº¿ç¨‹æ± (nthreads: çº¿ç¨‹æ± æ•°é‡, stacksize: æœªç”¨åˆ°)
 thrdpool_t *thrdpool_create(size_t nthreads, size_t stacksize);
-// Ìí¼ÓÈÎÎñµ½Ïß³Ì³ØÖĞ(task: ÈÎÎñ, pool: Ïß³Ì³Ø)
+// æ·»åŠ ä»»åŠ¡åˆ°çº¿ç¨‹æ± ä¸­(task: ä»»åŠ¡, pool: çº¿ç¨‹æ± )
 int thrdpool_schedule(const struct thrdpool_task *task, thrdpool_t *pool);
-// À©´óÏß³Ì³Ø, Ôö¼Ó1¸öÏß³Ì
+// æ‰©å¤§çº¿ç¨‹æ± , å¢åŠ 1ä¸ªçº¿ç¨‹
 int thrdpool_increase(thrdpool_t *pool);
-// ÅĞ¶Ïµ±Ç°Ïß³ÌÊÇ·ñÔÚÏß³Ì³ØÖĞ
+// åˆ¤æ–­å½“å‰çº¿ç¨‹æ˜¯å¦åœ¨çº¿ç¨‹æ± ä¸­
 int thrdpool_in_pool(thrdpool_t *pool);
-// ÖĞÖ¹Ïß³Ì³Ø(pending: ¶ÔÏß³Ì³ØÖĞ²ĞÁôµÄÈÎÎñ×ö¶îÍâµÄ´¦Àí, pool: Ïß³Ì³Ø)
+// ä¸­æ­¢çº¿ç¨‹æ± (pending: å¯¹çº¿ç¨‹æ± ä¸­æ®‹ç•™çš„ä»»åŠ¡åšé¢å¤–çš„å¤„ç†, pool: çº¿ç¨‹æ± )
 void thrdpool_destroy(void (*pending)(const struct thrdpool_task *),
 					  thrdpool_t *pool);
-// pending: Ö÷ÒªÊÇ´¦ÀíÈÎÎñÊı¾İ, ÓÃ»§ÊÇ·ñÓĞÉêÇëµÄÄÚ´æĞèÒªÊÍ·Å
+// pending: ä¸»è¦æ˜¯å¤„ç†ä»»åŠ¡æ•°æ®, ç”¨æˆ·æ˜¯å¦æœ‰ç”³è¯·çš„å†…å­˜éœ€è¦é‡Šæ”¾
 #endif
 

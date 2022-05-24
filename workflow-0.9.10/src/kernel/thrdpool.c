@@ -23,18 +23,22 @@
 #include "list.h"
 #include "thrdpool.h"
 
+// 线程池结构体
 struct __thrdpool
 {
-	struct list_head task_queue;
-	size_t nthreads;
-	size_t stacksize;
-	pthread_t tid;
+	struct list_head task_queue;  // 任务队列(双向链表)  实际的任务类型是 __thrdpool_task_entry
+	size_t nthreads;  // 线程数量
+	size_t stacksize;  // 栈大小
+	pthread_t tid;  // 线程id
+	// for 任务队列
 	pthread_mutex_t mutex;
-	pthread_cond_t cond;
+	pthread_cond_t cond;  
+	// 用于判断当前线程是否在线程池中
 	pthread_key_t key;
+	// 中止标记
 	pthread_cond_t *terminate;
 };
-
+// 任务类型
 struct __thrdpool_task_entry
 {
 	struct list_head list;
@@ -42,30 +46,34 @@ struct __thrdpool_task_entry
 };
 
 static pthread_t __zero_tid;
-
+// 线程函数
 static void *__thrdpool_routine(void *arg)
 {
 	thrdpool_t *pool = (thrdpool_t *)arg;
+	// 任务队列
 	struct list_head **pos = &pool->task_queue.next;
-	struct __thrdpool_task_entry *entry;
+	struct __thrdpool_task_entry *entry;  // 具体的任务
 	void (*task_routine)(void *);
 	void *task_context;
 	pthread_t tid;
-
+	// 线程共享数据
 	pthread_setspecific(pool->key, pool);
 	while (1)
 	{
+		// 等待任务
 		pthread_mutex_lock(&pool->mutex);
 		while (!pool->terminate && list_empty(&pool->task_queue))
 			pthread_cond_wait(&pool->cond, &pool->mutex);
 
+		// 是否中止线程
 		if (pool->terminate)
 			break;
-
+		// 获取任务, 并从任务队列中移除
 		entry = list_entry(*pos, struct __thrdpool_task_entry, list);
-		list_del(*pos);
+		list_del(*pos); 
 		pthread_mutex_unlock(&pool->mutex);
 
+		// 执行任务
 		task_routine = entry->task.routine;
 		task_context = entry->task.context;
 		free(entry);
@@ -175,10 +183,11 @@ thrdpool_t *thrdpool_create(size_t nthreads, size_t stacksize)
 {
 	thrdpool_t *pool;
 	int ret;
-
+	// 创建线程
 	pool = (thrdpool_t *)malloc(sizeof (thrdpool_t));
 	if (pool)
 	{
+		// 初始化线程锁
 		if (__thrdpool_init_locks(pool) >= 0)
 		{
 			ret = pthread_key_create(&pool->key, NULL);
@@ -189,6 +198,7 @@ thrdpool_t *thrdpool_create(size_t nthreads, size_t stacksize)
 				pool->nthreads = 0;
 				memset(&pool->tid, 0, sizeof (pthread_t));
 				pool->terminate = NULL;
+				// 创建线程
 				if (__thrdpool_create_threads(nthreads, pool) >= 0)
 					return pool;
 
