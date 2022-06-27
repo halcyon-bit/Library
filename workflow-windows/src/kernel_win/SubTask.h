@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   Copyright (c) 2019 Sogou, Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,19 +24,19 @@
 #include <atomic>
 
 class ParallelTask;
-// ËùÓĞÈÎÎñµÄ»ùÀà
+// æ‰€æœ‰ä»»åŠ¡çš„åŸºç±»
 class SubTask
 {
 public:
-	// ÈÎÎñÅÉ·¢
+	// ä»»åŠ¡æ´¾å‘
 	virtual void dispatch() = 0;
 
 private:
-	// ÈÎÎñÖ´ĞĞÍê³Éºó»áµ÷ÓÃ
+	// ä»»åŠ¡æ‰§è¡Œå®Œæˆåä¼šè°ƒç”¨
 	virtual SubTask *done() = 0;
 
 protected:
-	// ÈÎÎñÖ´ĞĞÍê³Éºóµ÷ÓÃ, ÄÚ²¿µ÷ÓÃÊµ¼ÊÈÎÎñµÄ done()
+	// ä»»åŠ¡æ‰§è¡Œå®Œæˆåè°ƒç”¨, å†…éƒ¨è°ƒç”¨å®é™…ä»»åŠ¡çš„ done()
 	void subtask_done();
 
 public:
